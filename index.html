@@ -1,0 +1,97 @@
+<!--
+Author: Ariadne Dimarogona
+Date: 1/26/25
+Coding/ART project for assignment 1 CSE 194: AR filter inspired by the film Hackers (1995)
+-->
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mindar-js/aframe/dist/aframe.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mindar-js/core/dist/mindar.js"></script>
+    </head>
+    <body>
+        <div>
+            <!-- Input field and buttons -->
+            <input type="text" id="userInput" placeholder="Type your hacker name" />
+            <button onclick="saveText()">Save</button>
+            <button onclick="updateText()">Display Name</button>
+          
+
+        </div>
+        
+        <div>
+            <!-- Add the face tracking-->
+            <a-scene mindar-face embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+
+                <!-- Define the 3d models-->
+                <a-assets>
+                    <a-asset-item id="glassesModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
+                    <a-asset-item id="virus" src="/assets/computer_virus.glb"></a-asset-item>
+                    <a-asset-item id="system" src="/assets/system.glb"></a-asset-item>
+                </a-assets>
+
+                <!-- mandatory camera set up-->
+                <a-camera active="false" position="0 0 0"></a-camera>
+
+                <!-- add entities :)-->
+
+                <!-- <a-entity mindar-face-target="anchorIndex: 168">
+                    <a-gltf-model rotation="0 0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel"></a-gltf-model>
+                </a-entity> -->
+
+                <a-entity mindar-face-target="anchorIndex: 10">
+                    <a-gltf-model rotation="-30 0 0" position="0 0 0" scale="0.05 0.05 0.05" src="#virus"></a-gltf-model>
+                </a-entity>
+                <a-entity mindar-face-target="anchorIndex: 338">
+                    <a-gltf-model rotation="-30 0 0" position="0 0 0" scale="0.05 0.05 0.05" src="#virus"></a-gltf-model>
+                </a-entity>
+                <a-entity mindar-face-target="anchorIndex: 297">
+                    <a-gltf-model rotation="-30 0 0" position="0 0 0" scale="0.05 0.05 0.05" src="#virus"></a-gltf-model>
+                </a-entity>
+                <a-entity mindar-face-target="anchorIndex: 332">
+                    <a-gltf-model rotation="-30 0 0" position="0 0 0" scale="0.05 0.05 0.05" src="#virus"></a-gltf-model>
+                </a-entity>
+                <a-entity mindar-face-target="anchorIndex: 109">
+                    <a-gltf-model rotation="-10 0 0" position="0 0 0" scale="0.05 0.05 0.05" src="#virus"></a-gltf-model>
+                </a-entity>
+                <a-entity mindar-face-target="anchorIndex: 67">
+                    <a-gltf-model rotation="0 0 0" position="0 0 0" scale="0.05 0.05 0.05" src="#virus"></a-gltf-model>
+                </a-entity>
+                <a-entity mindar-face-target="anchorIndex: 103">
+                    <a-gltf-model rotation="-30 0 0" position="0 0 0" scale="0.05 0.05 0.05" src="#virus"></a-gltf-model>
+                </a-entity>
+                <a-entity mindar-face-target="anchorIndex: 168">
+                    <a-gltf-model rotation="0 0 0" position="0 0 0" scale="0.7 0.5 0.5" src="#system"></a-gltf-model>
+                </a-entity>
+                <a-entity id ="3d-text" mindar-face-target="anchorIndex: 151">
+                    <a-text value=""></a-text>
+                </a-entity>
+            
+            </a-scene>
+        </div>
+        <script>
+            // Variable to store the text input
+            let savedText = '';
+
+            // Function to save the input text to the variable
+            function saveText() {
+            savedText = document.getElementById("userInput").value;
+            alert("Text has been saved!");
+            }
+
+            // Function to update the 3D text in the A-Frame scene
+            function updateText() {
+            const textEntity = document.getElementById("3d-text");
+
+            if (savedText) {
+                // Update the 3D text entity with the saved text
+                textEntity.setAttribute('text', 'value', savedText);
+            } else {
+                alert("No text has been saved yet!");
+            }
+            }
+        </script>
+    </body>
+</html>
